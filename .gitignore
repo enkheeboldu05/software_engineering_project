@@ -1,0 +1,19 @@
+# LaTeX build files (keep sources and PDFs)
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+
+# Local configuration and dependencies
+.env
+.env.*
+!.env.example
+node_modules/
+.DS_Store

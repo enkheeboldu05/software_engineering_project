@@ -1,0 +1,123 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{AI-Driven Interactive Wine Cellar Management System with Transparent Display Integration\\
+}
+
+\author{
+\makebox[\textwidth][c]{%
+\begin{minipage}[t]{0.245\textwidth}
+\centering
+\textbf{Naomi K. Fossaberg}\\
+\textit{Department of}\
+\textit{Computer Science}\\
+IT University of Copenhagen\\
+Copenhagen, Denmark\\
+{\footnotesize nafo@itu.dk}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.245\textwidth}
+\centering
+\textbf{Enkhbold Myagmarjav}\\
+\textit{Department of}\
+\textit{Information Systems}\\
+Hanyang University\\
+Seoul, Republic of Korea\\
+{\footnotesize enkheeboldu@hanyang.ac.kr}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.245\textwidth}
+\centering
+\textbf{Chiang Jun Han}\\
+\textit{Department of Electrical}\
+\textit{and Electronic Engineering}\\
+Nanyang Technological\\
+University\\
+Singapore\
+{\footnotesize jchiang009@e.ntu.edu.sg}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.245\textwidth}
+\centering
+\textbf{Sungbin Bae}\\
+\textit{Department of}\
+\textit{Mathematics}\\
+Hanyang University\\
+Seoul, Republic of Korea\
+{\footnotesize charliepro@hanyang.ac.kr}
+\end{minipage}%
+}
+}
+
+\maketitle
+
+\begin{abstract}
+TBD
+\end{abstract}
+
+% Keep the role table directly after the abstract instead of floating it.
+\par\medskip
+\begingroup
+\small
+\refstepcounter{table}\label{tab:role-assignments}
+\begin{center}
+Table \arabic{table}. Role Assignments\par\smallskip
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\columnwidth}{|>{\raggedright\arraybackslash}p{0.27\columnwidth}|>{\raggedright\arraybackslash}p{0.18\columnwidth}|X|}
+\hline
+\multicolumn{1}{|c|}{Roles} & \multicolumn{1}{c|}{Name} & \multicolumn{1}{c|}{Task description and etc.} \\
+\hline{User} & & \\[0.6em]
+\hline{Customer} & & \\[0.6em]
+\hline{Software developer} & & \\[0.6em]
+\hline{Development manager} & & \\[0.6em]
+\hline
+\end{tabularx}
+\end{center}
+\endgroup
+
+
+
+
+\section{Introduction}
+
+\subsection{Motivation}
+In recent years, the premium home appliance market has undergone a fundamental paradigm shift, transitioning from pure hardware performance competition toward elevating user experience (UX) through Artificial Intelligence (AI) and the Internet of Things (IoT). High-end luxury product lines, such as LG SIGNATURE, incur substantial hardware manufacturing costs, thereby demanding software capabilities that deliver commensurate value to justify their premium positioning. Concurrently, the global expansion of the fine wine market has driven rapid demand for specialized home wine cellars which is driven by AI management. However, existing commercial wine cellars remain passive appliances limited to fundamental condition control (temperature ,humidity regulation, anti-vibration and so on), failing to satisfy the sophisticated digital management needs of modern fine wine collectors.
+
+\subsection{Problem Statement and Target Audience}
+The primary target demographic for luxury wine cellars consists of high-net-worth individuals, predominantly in their 40s to 60s. Although these collectors frequently possess extensive and valuable wine collections, current management paradigms introduce critical usability bottlenecks:
+\begin{enumerate}
+    \item \textbf{High Interaction Cost and Friction:} Existing mobile-app-based wine management solutions force users to repeatedly handle cold bottles while operating small smartphone screens. This physical separation between the appliance and the management interface induces high cognitive load and interaction friction.
+    \item \textbf{Absence of Physical-Digital Synchronization:} Current wine cellars lack real-time synchronization between physical storage and digital databases. Consequently, users are required to perform manual inputs for every bottle movement, leading to severe tracking discrepancies and user abandonment over time.
+\end{enumerate}
+
+\subsection{Related Software and Limitations}
+An analysis of existing wine management software (e.g., Vivino, CellarTracker) and proprietary cellar tracking apps reveals distinct functional limitations when applied to high-end collections:
+\begin{itemize}
+    \item \textbf{Absence of Spatial Awareness:} Most commercial applications function merely as flat digital ledgers or list-based inventories. They lack a robust spatial mapping mechanism that correlates a specific bottle's data with its exact physical coordinates (e.g., specific racks and rows) within the cellar, inevitably forcing users to manually search through shelves.
+    \item \textbf{Static Data without Environmental Context:} Existing software operates completely independently of the cellar's internal hardware sensors. Consequently, they cannot factor real-time environmental data---such as multi-zone temperature differences---into their aging algorithms or serving readiness calculations.
+    \item \textbf{Reactive User Experience:} Current tools are inherently reactive, requiring users to explicitly query the database to check a wine's optimal drinking window or food pairing suitability. They lack the proactive intelligence necessary to autonomously recommend bottles from the active inventory that have reached peak maturity or perfectly match a planned dining menu.
+\end{itemize}
+
+\subsection{Proposed Solution and Key Contributions}
+To overcome these limitations, this paper proposes an AI-driven wine cellar management system integrated with a transparent display door, designed specifically for luxury appliances such as the LG SIGNATURE line.
+
+The key contributions of this work are summarized as follows:
+\begin{itemize}
+    \item \textbf{Vision AI and Automated Spatial Mapping:} Integrates a robust vision pipeline to extract label and vintage data. Upon insertion, an automated placement mechanism registers the bottle's location. This extends beyond rigid 2D grids, possessing the capability to accurately map bottles even when they are flexibly stacked on top of one another without discrete rack partitions.
+    \item \textbf{AI-Driven UX Enhancement:} Transcending basic touch interactions, the integrated AI engine drastically elevates the overall user experience by providing a highly versatile suite of intelligent services. By analyzing multidimensional data, the system proactively offers a broad spectrum of personalized management features and domain-specific insights, transforming passive wine storage into an actively managed, adaptive ecosystem.
+    \item \textbf{Multi-Device Distributed Scalability:} Establishes a synchronized system architecture that seamlessly unifies multiple physical cellar units under a single user profile for distributed inventory management.
+\end{itemize}
+
+\end{document}
