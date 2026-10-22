@@ -1,3 +1,4 @@
+%!TEX root = wine_cellar.tex
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
@@ -90,10 +91,10 @@ Table \arabic{table}. Role Assignments\par\smallskip
 
 
 
-\section{Introduction}
+\section{INTRODUCTION}
 
 \subsection{Motivation}
-In recent years, the premium home appliance market has undergone a fundamental paradigm shift, transitioning from pure hardware performance competition toward elevating user experience (UX) through Artificial Intelligence (AI) and the Internet of Things (IoT). High-end luxury product lines, such as LG SIGNATURE, incur substantial hardware manufacturing costs, thereby demanding software capabilities that deliver commensurate value to justify their premium positioning. Concurrently, the global expansion of the fine wine market has driven rapid demand for specialized home wine cellars which is driven by AI management. However, existing commercial wine cellars remain passive appliances limited to fundamental condition control (temperature ,humidity regulation, anti-vibration and so on), failing to satisfy the sophisticated digital management needs of modern fine wine collectors.
+In recent years, the premium home appliance market has undergone a fundamental paradigm shift, transitioning from pure hardware performance competition toward elevating user experience (UX) through Artificial Intelligence (AI) and the Internet of Things (IoT). High-end luxury product lines, such as LG SIGNATURE, incur substantial hardware manufacturing costs, thereby demanding software capabilities that deliver commensurate value to justify their premium positioning. Concurrently, the global expansion of the fine wine market has driven rapid demand for specialized home wine cellars which is driven by AI management. However, existing commercial wine cellars remain passive appliances limited to fundamental condition control (temperature, humidity regulation, anti-vibration, and so on), failing to satisfy the sophisticated digital management needs of modern fine wine collectors.
 
 \subsection{Problem Statement and Target Audience}
 The primary target demographic for luxury wine cellars consists of high-net-worth individuals, predominantly in their 40s to 60s. Although these collectors frequently possess extensive and valuable wine collections, current management paradigms introduce critical usability bottlenecks:
@@ -106,18 +107,173 @@ The primary target demographic for luxury wine cellars consists of high-net-wort
 An analysis of existing wine management software (e.g., Vivino, CellarTracker) and proprietary cellar tracking apps reveals distinct functional limitations when applied to high-end collections:
 \begin{itemize}
     \item \textbf{Absence of Spatial Awareness:} Most commercial applications function merely as flat digital ledgers or list-based inventories. They lack a robust spatial mapping mechanism that correlates a specific bottle's data with its exact physical coordinates (e.g., specific racks and rows) within the cellar, inevitably forcing users to manually search through shelves.
-    \item \textbf{Static Data without Environmental Context:} Existing software operates completely independently of the cellar's internal hardware sensors. Consequently, they cannot factor real-time environmental data---such as multi-zone temperature differences---into their aging algorithms or serving readiness calculations.
-    \item \textbf{Reactive User Experience:} Current tools are inherently reactive, requiring users to explicitly query the database to check a wine's optimal drinking window or food pairing suitability. They lack the proactive intelligence necessary to autonomously recommend bottles from the active inventory that have reached peak maturity or perfectly match a planned dining menu.
+    \item \textbf{Static Data without Environmental Context:} Existing software operates completely independently of the cellar's internal hardware sensors. Consequently, they cannot factor real-time environmental data—such as multi-zone temperature differences—into their aging algorithms or serving readiness calculations.
+    \item \textbf{Reactive and Monotone User Experience:} Current tools are inherently reactive, requiring users to explicitly query the database to check a wine's optimal drinking window or food pairing suitability. Furthermore, they rely on static text reviews, lacking the proactive intelligence and dynamic, expert-level engagement necessary to autonomously curate an immersive experience.
 \end{itemize}
 
 \subsection{Proposed Solution and Key Contributions}
-To overcome these limitations, this paper proposes an AI-driven wine cellar management system integrated with a transparent display door, designed specifically for luxury appliances such as the LG SIGNATURE line.
+To overcome these limitations, this paper proposes an AI-driven wine cellar management system integrated with a transparent display door, designed specifically for luxury appliances such as the LG SIGNATURE line. 
 
 The key contributions of this work are summarized as follows:
 \begin{itemize}
     \item \textbf{Vision AI and Automated Spatial Mapping:} Integrates a robust vision pipeline to extract label and vintage data. Upon insertion, an automated placement mechanism registers the bottle's location. This extends beyond rigid 2D grids, possessing the capability to accurately map bottles even when they are flexibly stacked on top of one another without discrete rack partitions.
+    \item \textbf{On-Device Multi-Agent SLM Architecture:} Introduces a privacy-preserving, edge-AI conversational interface where multiple Small Language Models (SLMs), each embodying the persona of a renowned wine critic, engage in dynamic debates regarding the selected wine. To circumvent the severe memory constraints of home appliances, the architecture leverages a single quantized base model with dynamic Low-Rank Adaptation (LoRA) swapping, ensuring a latency-free and hyper-personalized interactive experience without relying on external cloud servers.
     \item \textbf{AI-Driven UX Enhancement:} Transcending basic touch interactions, the integrated AI engine drastically elevates the overall user experience by providing a highly versatile suite of intelligent services. By analyzing multidimensional data, the system proactively offers a broad spectrum of personalized management features and domain-specific insights, transforming passive wine storage into an actively managed, adaptive ecosystem.
     \item \textbf{Multi-Device Distributed Scalability:} Establishes a synchronized system architecture that seamlessly unifies multiple physical cellar units under a single user profile for distributed inventory management.
+\end{itemize}
+
+\section{REQUIREMENTS SPECIFICATION}
+
+\subsection{Functional Requirements}
+
+\subsubsection{User Management}
+\begin{itemize}
+    \item The system shall allow a user to create an account with the following mandatory information: Username, Email, and Password.
+    \item The system shall allow a registered user to log in and out.
+    \item The system shall allow an authenticated user to edit their profile information.
+\end{itemize}
+
+\subsubsection{Inventory Mapping}
+\begin{itemize}
+    \item The system shall automatically detect wine bottles placed inside the wine cellar using computer vision.
+    \item The system shall extract wine label information from detected bottles using AI.
+    \item The system shall automatically register newly detected bottles in the inventory.
+    \item The system shall automatically associate each detected bottle with a physical location in the wine cellar.
+    \item The system shall automatically update a bottle's location when it is moved within the wine cellar.
+    \item The system shall assign a unique identifier to each physical wine bottle to prevent duplicate inventory records.
+    \item The system shall allow an authenticated user to review and correct AI-extracted wine information before confirming registration.
+    \item The system shall automatically detect stacked wine bottles.
+    \item The system shall automatically remove a bottle from the inventory when it is removed from the wine cellar.
+    \item The system shall allow an authenticated user to manually add a wine bottle to the inventory.
+    \item The system shall allow an authenticated user to manually modify bottle information.
+    \item The system shall allow an authenticated user to manually remove a wine bottle from the inventory.
+\end{itemize}
+
+\subsubsection{Inventory Search \& Visualisation}
+\begin{itemize}
+    \item The system shall allow a user to search for a bottle by wine name, winery, region, vintage or grape variety.
+    \item The system shall display the physical location of a selected bottle within the wine cellar.
+    \item The system shall display a visual map of bottles stored in the wine cellar.
+\end{itemize}
+
+\subsubsection{Environmental Monitoring}
+\begin{itemize}
+    \item The system shall collect environmental data from the wine cellar sensors.
+    \item The system shall store historic environmental measurements from the wine cellar.
+    \item The system shall associate environmental conditions with individual bottle locations.
+    \item The system shall notify users when temperature or humidity exceeds user-defined thresholds for a specified duration.
+    \item The system shall notify users when sensors become disconnected or environmental data is outdated.
+\end{itemize}
+
+\subsubsection{AI Recommendations}
+\begin{itemize}
+    \item The system shall allow a user to input data regarding a meal and receive wine pairing recommendations from the user's current inventory.
+    \item The system shall allow a user to select a specific wine from the inventory and generate complementary food pairing suggestions, including culinary recipes or food delivery menu categories.
+    \item The system shall recommend bottles that have reached their optimal drinking window.
+    \item The system shall notify a user when wines are approaching their optimal drinking window.
+    \item The system shall generate personalised recommendations based on historical consumption patterns.
+    \item The system shall allow a user to input specific constraints, such as a target budget, flavor profile, or event theme, to request a curated wine list.
+    \item The system shall automatically generate and display a customized wine list that satisfies the user-defined parameters, utilizing both the existing cellar inventory and external databases for potential new purchases.
+    \item The system shall recommend suitable storage locations for newly added bottles.
+    \item The system shall recommend wines by SLM query.
+\end{itemize}
+
+\subsubsection{Personalized Daily Wine Briefing}
+\begin{itemize}
+    \item The system shall aggregate daily global wine news, vintage reports, and market trends from external web sources and APIs.
+    \item The system shall personalize the aggregated news content by cross-referencing it with the user's specific cellar inventory, highlighting articles relevant to their owned regions, grapes, or producers.
+    \item The system shall automatically curate and display a "Daily Wine Briefing" on the cellar's front display, including inventory-specific insights (e.g., wines reaching their peak, humidity stability).
+    \item The system shall send a summarized version of the daily briefing as a push notification to the user's synchronized mobile application at a user-defined time.
+\end{itemize}
+
+\subsubsection{Real-Time Market Value Integration}
+\begin{itemize}
+    \item The system shall integrate with external global wine market APIs (e.g., Wine-Searcher) to retrieve real-time pricing data for the specific vintages stored in the cellar.
+    \item The system shall calculate and visualize the real-time aggregated market value of the user's entire wine collection on the front display.
+    \item The system shall provide graphical visualizations of historical price trends and value appreciation for individual bottles to assist the user in asset management.
+\end{itemize}
+
+\subsubsection{Multi-Cellar Management}
+\begin{itemize}
+    \item The system shall allow a user to manage multiple wine cellar units and wine cellars under a single account.
+    \item The system shall synchronise inventory information across connected wine cellars.
+    \item The system shall allow a user to search across all connected wine cellars.
+\end{itemize}
+
+\subsubsection{Multi-Agent SLM Dialog System}
+\begin{itemize}
+    \item The system shall integrate multiple distinct On-Device Small Language Models (SLMs), each configured with a unique persona reflecting the evaluation tendencies and grading philosophies of renowned wine critics (e.g., Robert Parker, Luca Maroni).
+    \item The system shall automatically trigger a simulated multi-agent dialogue among the embedded SLMs whenever a new wine is registered to the cellar inventory or actively selected by the user via the touch display.
+    \item The system shall generate and visualize interactive, chat-style debates on the front display, showcasing diverse analytical perspectives, tasting notes, and aging predictions for the selected wine.
+    \item The system shall allow the on-device SLMs to continuously fine-tune their conversational outputs and recommendations by locally learning from the user's cellar database, including inventory history, consumption patterns, and individual preferences.
+    \item \textbf{Base Model Initialization:} The system shall load a single, heavily quantized (e.g., 4-bit) base Small Language Model (SLM) into the on-device volatile memory (RAM) upon system startup.
+    \item \textbf{Dynamic LoRA Swapping:} The system shall dynamically load and unload specific Low-Rank Adaptation (LoRA) weight matrices corresponding to the active persona during the multi-agent dialogue generation.
+    \item \textbf{Modular Persona Update:} The system shall allow the addition or modification of critic personas via OTA (Over-The-Air) updates by simply downloading new, lightweight LoRA files (under 50MB) without altering the base model.
+\end{itemize}
+
+\subsubsection{Mobile Application Integration}
+\begin{itemize}
+    \item The system shall provide a companion mobile application that synchronizes real-time inventory and cellar status with the user's account.
+    \item The system shall allow a user to remotely browse their wine inventory, search for bottles, and view AI recommendations via the mobile application.
+    \item The system shall push real-time notifications to the mobile application regarding critical environmental alerts (e.g., temperature fluctuations) and optimal drinking windows.
+    \item The system shall allow a user to remotely adjust the temperature and humidity settings of individual cellar zones through the mobile application.
+    \item The system shall allow a user to manually add, edit, or remove wine inventory data via the mobile application when away from the physical cellar.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+\subsubsection{Performance}
+\begin{itemize}
+    \item The system shall return inventory search results within 2 seconds for 95\% of requests.
+    \item The system shall update the displayed inventory within 10 seconds after a bottle had been added or removed.
+    \item The system shall execute the LoRA adapter swapping and generate the initial dialogue response within 1.5 seconds to ensure a seamless, real-time user experience.
+\end{itemize}
+
+\subsubsection{Resource}
+\begin{itemize}
+    \item The total active memory footprint (VRAM/RAM) of the base SLM and the concurrently loaded LoRA adapters shall strictly not exceed 4 GB.
+\end{itemize}
+
+\subsubsection{Reliability}
+\begin{itemize}
+    \item The system shall preserve the submitted data so that it remains after application restart.
+    \item The system shall recover the latest successfully stored inventory after an unexpected shutdown.
+    \item The system shall automatically back up inventory data and support recovery following unexpected data loss.
+\end{itemize}
+
+\subsubsection{Security}
+\begin{itemize}
+    \item The system shall require authentication before a user can access inventory management functions.
+    \item The system shall store passwords in encrypted form.
+    \item The system shall encrypt personal user data during transmission.
+    \item The system shall prevent users from accessing or modifying another user's wine inventory.
+\end{itemize}
+
+\subsubsection{Privacy}
+\begin{itemize}
+    \item The system shall be compliant with GDPR.
+    \item The system shall process all SLM-related computations and user preference learning entirely on-device (Edge AI), guaranteeing that no personal consumption data or inventory logs are transmitted to external cloud servers.
+\end{itemize}
+
+\subsubsection{Maintainability}
+\begin{itemize}
+    \item The system architecture shall support replacement or upgrade of AI models without requiring modifications to the user interface.
+    \item The system architecture shall support integration of additional sensor types without requiring changes to existing inventory management functionality.
+\end{itemize}
+
+\subsubsection{Usability}
+\begin{itemize}
+    \item The system shall allow new users to use it without consulting external documentation.
+    \item The system shall indicate the authentication of the current user at all times.
+    \item The system shall preserve unsaved user input in the event of application restart, so the user will not have to reenter it.
+\end{itemize}
+
+\subsubsection{Energy Efficiency}
+\begin{itemize}
+    \item The SLM inference process shall be optimized to utilize the low-power Neural Processing Unit (NPU), ensuring that the AI chat feature does not generate excessive heat that could impact the internal temperature control of the wine cellar.
+    \item The system shall exclusively utilize a low-power Neural Processing Unit (NPU) for on-device SLM inference, strictly prohibiting the use of high-wattage GPUs to prevent excess thermal output.
+    \item The system's computational module shall be thermally isolated, ensuring its heat dissipation does not alter the internal climate zones of the wine cellar.
+    \item The SLM inference process shall be optimized to operate within the stringent Thermal Design Power (TDP) limits of the embedded NPU, ensuring zero interference with the cellar's anti-vibration and precision cooling mechanisms.
 \end{itemize}
 
 \end{document}
